@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "@/pages/Home.tsx";
 import RootLayout from "@/pages/RootLayout.tsx";
-import Contact from "@/pages/About";
+import About from "@/pages/About";
+import BlogPage from "@/pages/Blogs/blog";
+import blogdetailPage from "@/pages/Blogs/blogdetail";
 import ErrorPage from "@/pages/Error.tsx";
+import blogRootLayout from "./pages/Blogs/blogRootLayout";
 
 export const routes = createBrowserRouter([
   {
@@ -10,11 +13,16 @@ export const routes = createBrowserRouter([
     Component: RootLayout,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, 
-        Component: HomePage, 
-        errorElement: <ErrorPage /> },
-      { path: "contact", 
-        Component: Contact },
+      { index: true, Component: HomePage },
+      { path: "about", Component: About },
+      {
+        path: "blogs",
+        Component: blogRootLayout,
+        children: [
+          { index: true, Component: BlogPage },
+          { path: ":postId", Component: blogdetailPage },
+        ],
+      },
     ],
   },
 ]);

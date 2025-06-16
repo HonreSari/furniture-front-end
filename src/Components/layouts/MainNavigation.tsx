@@ -24,18 +24,18 @@ export default function MainNavigation({ items }: MainNavigationProps) {
       </Link>
       <NavigationMenu>
         <NavigationMenuList>
-          {items[0].card && (
+          {items?.[0]?.card && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>{items[0].title}</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <Link
-                        className="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-6 no-underline outline-hidden select-none focus:shadow-md"
+                        className="from-muted/50 to-muted flex size-full flex-col justify-end rounded-md bg-linear-to-b p-6 no-underline outline-hidden select-none focus:shadow-md"
                         to="/"
                       >
-                        <Icons.logo className="h-10 w-10" aria-hidden="true" />
+                        <Icons.logo className="size-6" aria-hidden="true" />
                         <div className="mt-4 mb-2 text-lg font-medium">
                           {siteConfig.name}
                         </div>
@@ -48,7 +48,7 @@ export default function MainNavigation({ items }: MainNavigationProps) {
                   {items[0].card.map((item) => (
                     <ListItem
                       key={item.title}
-                      href={item.href}
+                      href={item.href!}
                       title={item.title}
                     >
                       {item.description}
@@ -58,15 +58,13 @@ export default function MainNavigation({ items }: MainNavigationProps) {
               </NavigationMenuContent>
             </NavigationMenuItem>
           )}
-          {items[0].menu &&
+          {items?.[0]?.menu &&
             items[0].menu.map((item) => (
-              <NavigationMenuItem>
-                <Link to={item.href}>
-                  {item.title}
-                  <NavigationMenuLink
-                    asChild
-                    className={navigationMenuTriggerStyle()}
-                  ></NavigationMenuLink>
+              <NavigationMenuItem key={item.title}>
+                <Link to={String(item.href)}>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    {item.title}
+                  </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             ))}
@@ -75,6 +73,7 @@ export default function MainNavigation({ items }: MainNavigationProps) {
     </div>
   );
 }
+
 
 function ListItem({
   title,

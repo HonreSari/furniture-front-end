@@ -12,6 +12,7 @@ export const siteConfig = {
   mainNav: [
     {
       title: "Products",
+      href: "products",
       card: [
         {
           title: "Wooden",

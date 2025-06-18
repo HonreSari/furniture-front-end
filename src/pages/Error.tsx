@@ -13,20 +13,23 @@ import {
 import { Link } from "react-router-dom";
 export default function Error() {
   return (
-    <div className="flex min-h-screen flex-col">
+  <div className="flex min-h-screen flex-col overflow-hidden">
       <Header />
-      <main className="mx-auto flex flex-1 items-center">
-        <Card className="w-[350px] md:w-[200px] lg:w-[400px]">
-          <CardHeader className="flex place-items-center gap-2">
+      <main className="mx-auto my-32 flex flex-1 items-center">
+        <Card className="w-[350px] md:w-[500px] lg:w-[500px]">
+          <CardHeader className="flex flex-col items-center gap-2">
             <div className="border-muted-foreground/70 mt-2 mb-4 grid size-24 place-items-center rounded-full border border-dashed">
-              <Icons.exclamation className="size-10 text-red-600" />
+              <Icons.exclamation
+                className=" size-10 text-red-700"
+                aria-hidden="true"
+              />
             </div>
-            <CardTitle>404!</CardTitle>
-            <CardDescription>An error occurs Accidently</CardDescription>
+            <CardTitle>Oops!</CardTitle>
+            <CardDescription>An error occurs accidently.</CardDescription>
           </CardHeader>
           <CardFooter className="flex justify-center">
             <Button variant="outline" asChild>
-              <Link to="/">Click Here</Link>
+              <Link to="/">Go to Home Page</Link>
             </Button>
           </CardFooter>
         </Card>

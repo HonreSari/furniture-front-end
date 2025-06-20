@@ -15,7 +15,7 @@ export default function Error() {
   return (
   <div className="flex min-h-screen flex-col overflow-hidden">
       <Header />
-      <main className="mx-auto my-32 flex flex-1 items-center">
+      <main className="mx-auto my-32 flex flex-1 items-center ">
         <Card className="w-[350px] md:w-[500px] lg:w-[500px]">
           <CardHeader className="flex flex-col items-center gap-2">
             <div className="border-muted-foreground/70 mt-2 mb-4 grid size-24 place-items-center rounded-full border border-dashed">

@@ -28,7 +28,7 @@ export const products = [
     name: "Nordic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p1, p4, p7],
+    images: [p1, p4, p7], 
     categoryId: "uuid1",
     price: 230,
     discount: 0,

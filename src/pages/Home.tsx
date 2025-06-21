@@ -1,6 +1,7 @@
 import { CarouselCard } from "@/Components/products/CaroselCard";
 import { Button } from "@/components/ui/button"; 
 import Couch from "@/data/images/couch.png";
+import { products } from "@/data/products";
 import { Link } from "react-router-dom";
 export default function HomePage() {
   return (
@@ -30,7 +31,7 @@ export default function HomePage() {
         {/* Image Section  */}
         <img src={Couch} alt="Couch" className="w-full lg:w-3/5" />
       </div>
-      <CarouselCard />
+      <CarouselCard products={products} />
     </div>
   );
 }

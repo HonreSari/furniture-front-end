@@ -3,7 +3,7 @@ import type { MainNavItem } from "@/Types";
 import { Icons } from "@/Components/icons";
 import { siteConfig } from "@/config/site";
 import { ScrollArea } from "@/Components/ui/scroll-area";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 
 import {
   Sheet,

@@ -1,7 +1,7 @@
 import { Icons } from "@/Components/icons";
 import Footer from "@/Components/layouts/Footer";
 import Header from "@/Components/layouts/Header";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 
 import {
   Card,

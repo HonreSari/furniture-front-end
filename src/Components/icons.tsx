@@ -1,10 +1,15 @@
-import { HomeIcon, HamburgerMenuIcon , PaperPlaneIcon ,ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import {
+  HomeIcon,
+  HamburgerMenuIcon,
+  PaperPlaneIcon,
+  ExclamationTriangleIcon,
+  ArrowLeftIcon,
+  LayersIcon,
+} from "@radix-ui/react-icons";
 
-
-
- export type IconProps = React.SVGProps<SVGSVGElement>;
+export type IconProps = React.SVGProps<SVGSVGElement>;
 export const Icons = {
-  logo: (props : IconProps) => (
+  logo: (props: IconProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -12,7 +17,7 @@ export const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       {...props}
-      >
+    >
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -21,8 +26,9 @@ export const Icons = {
     </svg>
   ),
   home: HomeIcon,
-  menu : HamburgerMenuIcon,
+  menu: HamburgerMenuIcon,
   send: PaperPlaneIcon,
-  exclamation : ExclamationTriangleIcon,
-
+  exclamation: ExclamationTriangleIcon,
+  arrowLeft: ArrowLeftIcon,
+  layers: LayersIcon,
 };

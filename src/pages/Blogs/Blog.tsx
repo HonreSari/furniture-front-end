@@ -1,6 +1,10 @@
-import { posts } from "@/data/posts";
+import { useLoaderData } from "react-router-dom";
 import BlogPostLists from "@/Components/blogs/BlogPostLists";
+import { Post } from "@/Types";
+
 export default function Blog() {
+  const posts = useLoaderData() as Post[];
+
   return (
     <div className="container mx-auto mt-8 px-4 md:px-8">
       <h1 className="text-center text-2xl font-bold md:text-left">

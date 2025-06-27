@@ -9,6 +9,11 @@ export interface NavItemWithChildren extends NavItem {
   menu?: NavItemWithChildren[];
 }
 
+// export type Image = {
+//   id: string;
+//   path: string
+// }
+
 export type MainNavItem = NavItemWithChildren;
 
 export type Product = {
@@ -34,3 +39,8 @@ export type Post = {
   updated_at: string;
   tags: string[];
 };
+
+export type Category = {
+  id: string;
+  label : string;
+}

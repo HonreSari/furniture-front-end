@@ -28,7 +28,7 @@ export const products = [
     name: "Nordic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p1, p4, p7], 
+    images: [p1,p4,p7],
     categoryId: "uuid1",
     price: 230,
     discount: 0,
@@ -54,7 +54,7 @@ export const products = [
     name: "Ergonomic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p3, p1, p6],
+    images: [p3,p1,p6],
     categoryId: "uuid1",
     price: 90,
     discount: 110,
@@ -67,7 +67,7 @@ export const products = [
     name: "Nordic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p4, p2, p7],
+    images: [p4,p2,p7],
     categoryId: "uuid3",
     price: 1500,
     discount: 0,
@@ -80,7 +80,7 @@ export const products = [
     name: "Kruzo Aero Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p5, p3, p8],
+    images: [p5,p3,p8],
     categoryId: "uuid1",
     price: 230,
     discount: 0,
@@ -93,7 +93,7 @@ export const products = [
     name: "Ergonomic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p6, p2, p4],
+    images: [p6,p2,p4],
     categoryId: "uuid1",
     price: 140,
     discount: 150,
@@ -106,7 +106,7 @@ export const products = [
     name: "Nordic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p7, p1, p3],
+    images: [p7,p1,p3],
     categoryId: "uuid3",
     price: 210,
     discount: 0,
@@ -119,7 +119,7 @@ export const products = [
     name: "Ergonomic Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p8, p4, p2],
+    images: [p8,p4,p2],
     categoryId: "uuid2",
     price: 140,
     discount: 150,
@@ -132,7 +132,7 @@ export const products = [
     name: "Kruzo Aero Chair",
     description:
       "Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quam ut purus rutrum lobortis",
-    images: [p5, p3, p8],
+    images: [p5,p3,p8],
     categoryId: "uuid1",
     price: 250,
     discount: 260,

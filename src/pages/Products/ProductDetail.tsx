@@ -17,12 +17,24 @@ import {
 import { formatPrice } from "@/lib/utils";
 import { Rating } from "./Rating";
 import Addtofavorite from "./Addtofavorite";
+import { AddToCardForm } from "./AddtoCard";
+import { useEffect } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/Components/ui/accordion";
+
 export default function ProductDetail() {
   const { productId } = useParams();
   const product = products.find(
     (product) =>
       product.id.trim().toLowerCase() === productId?.trim().toLowerCase(),
   );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
 
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true }),
@@ -31,8 +43,8 @@ export default function ProductDetail() {
     return <div>Product not found</div>;
   }
   return (
-    <div className="container mx-auto px-4 md:px-0">
-      <Button asChild variant="outline" className="mt-8">
+    <div className="w-full px-16">
+      <Button asChild variant="outline" className="mt-6">
         <Link to="/products">
           <Icons.arrowLeft /> All Products
         </Link>
@@ -54,18 +66,27 @@ export default function ProductDetail() {
           </CarouselContent>
         </Carousel>
         <Separator className="mt-4 md:hidden" />
-        <div className="flex w-full flex-col gap-4 md:w-1/2 ">
-        <div className="gap-2">
-                 <h2 className="line-clamp-1 font-bold text-2xl">{product.name}</h2>
-          <p className="text-gray-500 ">{formatPrice(Number(product.price))}</p>
-        </div>
-   
-        <Separator className="my-1.5" />
-        <p className="">{product?.inventory} in stock</p>
-        <div className="flex items-center justify-between">
+        <div className="flex w-full flex-col gap-4 md:w-1/2">
+          <div className="gap-2">
+            <h2 className="line-clamp-1 text-2xl font-bold">{product.name}</h2>
+            <p className="text-gray-500">
+              {formatPrice(Number(product.price))}
+            </p>
+          </div>
+          <Separator className="my-1.5" />
+          <p className="">{product?.inventory} in stock</p>
+          <div className="flex items-center justify-between">
             <Rating rating={product?.rating} />
             <Addtofavorite productId={product.id} rating={product.rating} />
-        </div>
+          </div>
+          <AddToCardForm canBuy={product.status === "active"} />
+          <Separator className="my-3" />
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1" className="border-none">
+              <AccordionTrigger className="text-lg font-semibold">Description</AccordionTrigger>
+              <AccordionContent className="font-light">{product.description}</AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
       <section className="space-y-6">

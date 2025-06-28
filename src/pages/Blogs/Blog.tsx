@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import BlogPostLists from "@/Components/blogs/BlogPostLists";
-import { Post } from "@/Types";
+import type { Post } from "@/Types";
 
 export default function Blog() {
   const posts = useLoaderData() as Post[];

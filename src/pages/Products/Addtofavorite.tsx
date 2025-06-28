@@ -11,7 +11,7 @@ interface FavoriteProps extends ButtonProps {
 
 export default function Addtofavorite({
   productId,
-  rating,
+  // rating,
   className,
   ...props
 }: FavoriteProps) {

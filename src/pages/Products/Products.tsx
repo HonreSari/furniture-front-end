@@ -5,7 +5,7 @@ import {ProductsFilter} from "@/pages/Products/ProductsFilter";
 import { PaginationDemo } from "./Pagination";
 export default function Products() {
   return (
-    <div className="container mx-auto">
+    <div className="w-full px-8">
       <section className="flex flex-col gap-4 lg:flex-row">
         <section className="my-8 ml-4 w-full lg:w-1/5 ">
           <ProductsFilter filterList={filterList} />

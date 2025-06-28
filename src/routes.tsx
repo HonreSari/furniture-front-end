@@ -1,12 +1,12 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "@/pages/Home.tsx";
 import RootLayout from "@/pages/RootLayout.tsx";
 import About from "@/pages/About";
 import ErrorPage from "@/pages/Error.tsx";
 // import BlogPage from "@/pages/Blogs/Blog";
-// import blogdetailPage from "@/pages/Blogs/blogdetail";
-// import blogRootLayout from "./pages/Blogs/blogRootLayout";
+// import BlogdetailPage from "@/pages/Blogs/blogdetail";
+// import BlogRootLayout from "./pages/Blogs/blogRootLayout";
 const BlogRootLayout = lazy(( ) => import("@/pages/Blogs/blogRootLayout"))
 const BlogPage = lazy(( ) => import("@/pages/Blogs/Blog"))
 const BlogdetailPage = lazy(( ) => import("@/pages/Blogs/blogdetail"))
@@ -26,7 +26,14 @@ export const routes = createBrowserRouter([
         path: "blogs",
         Component: BlogRootLayout,
         children: [
-          { index: true, Component: BlogPage },
+          {
+            index: true,
+            Component: BlogPage,
+            loader: async () => {
+              const { posts } = await import("@/data/posts");
+              return posts;
+            },
+          },
           { path: ":postId", Component: BlogdetailPage },
         ],
       },

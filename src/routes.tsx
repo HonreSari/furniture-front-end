@@ -13,6 +13,8 @@ const BlogdetailPage = lazy(( ) => import("@/pages/Blogs/blogdetail"))
 import ProductRootLayouts from "./pages/Products/ProductRootLayouts";
 import ProductPage from "./pages/Products/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
 
 export const routes = createBrowserRouter([
   {
@@ -47,4 +49,12 @@ export const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path : "/login",
+    Component : Login,
+  },
+    {
+    path : "/register",
+    Component : Register,
+  }
 ]);

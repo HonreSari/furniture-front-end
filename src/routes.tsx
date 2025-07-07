@@ -15,19 +15,27 @@ import ProductPage from "./pages/Products/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
+import { homeLoader } from "@/router/loader";
+import { loginAction } from "@/router/actions";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <RootLayout />, // Compnent = RootLayout
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <HomePage />, loader: homeLoader },
       { path: "about", element: <About /> },
       {
         path: "blogs",
         element: (
-          <Suspense fallback={<div>Loading blogs...</div>}>
+          <Suspense
+            fallback={
+              <div className="text-center text-2xl font-bold">
+                Loading blogs...
+              </div>
+            }
+          >
             <BlogRootLayout />
           </Suspense>
         ),
@@ -35,7 +43,13 @@ export const routes = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<div>Loading blog page...</div>}>
+              <Suspense
+                fallback={
+                  <div className="text-center text-2xl font-bold">
+                    Loading blog page...
+                  </div>
+                }
+              >
                 <BlogPage />
               </Suspense>
             ),
@@ -71,6 +85,7 @@ export const routes = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    action: loginAction,
   },
   {
     path: "/register",

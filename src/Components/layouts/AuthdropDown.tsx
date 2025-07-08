@@ -1,5 +1,5 @@
 import { Icons } from "@/Components/icons";
-import { Link } from "react-router-dom";
+import { Link , Form} from "react-router-dom";
 import type { User } from "@/Types";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +23,10 @@ export default function AuthdropDown({ user }: UserProps) {
       </Button>
     );
   }
+  // const onSubmit = (values: z.infer<typeof FormSchema>) => {
+  //   // console.log(values);
+  //   submit(values, { method: "POST", action: "/login" });
+  // };
   //    const initialName = `${user.firstName.charAt(0) ?? ''}${user.lastName.charAt(0) ?? ""}`
   return (
     <DropdownMenu>
@@ -68,12 +72,17 @@ export default function AuthdropDown({ user }: UserProps) {
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
-        <Link to="/login">
-          <DropdownMenuItem className="flex justify-between">
+          <DropdownMenuItem className="flex justify-between" asChild>
+        {/* <Link to="/login" onSubmit={}>
             Log out
-            <Icons.exit className="h-4 w-4" />
+            </Link> */}
+        <Form method="post" action="/logout">
+          <button type="submit">
+            Logout
+            </button>
+            <Icons.exit className="h-4 w-4" />  
+        </Form>
           </DropdownMenuItem>
-        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );

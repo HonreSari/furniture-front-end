@@ -16,27 +16,30 @@ import { Icons } from "@/Components/icons";
 import { useState } from "react";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  // Changed to email for better validation, as the placeholder suggests an email.
+  email: z.string().email({
+    message: "Please enter a valid email address.",
   }),
 });
 
 export function ProfileForm() {
-  // ...  // 1. Define your form.
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "", // Updated default value key
     },
   });
-  // 2. Define a submit handler.
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
     setLoading(true);
-    //*Call api
+    // Simulate an API call and reset the form
+    setTimeout(() => {
+      setLoading(false);
+      form.reset(); // Reset the form fields to their default values
+      console.log("Form submitted and reset!");
+    }, 2000);
   }
 
   return (
@@ -44,30 +47,42 @@ export function ProfileForm() {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid pr-8 lg:pr-0"
+        autoComplete="off" // Add autoComplete="off" to the form as well
       >
         <FormField
           control={form.control}
-          name="username"
+          name="email" // Updated field name
           render={({ field }) => (
-            <FormItem >
-              <FormLabel className="text-xl lg:text-2xl  font-semibold">Suscribe to our new setter</FormLabel>
-              <div className="flex gap-2">
-                <FormControl>
-                  <Input placeholder="Example@gmail.com" {...field} />
-                </FormControl>
+            <FormItem>
+              {/* Corrected a typo: "setter" to "newsletter" */}
+              <FormLabel className="text-xl lg:text-2xl font-semibold">
+                Subscribe to our newsletter
+              </FormLabel>
+              <div className="flex items-start gap-2">
+                <div className="w-full">
+                  <FormControl>
+                    {/* Corrected autoComplete value from "false" to "off" */}
+                    <Input
+                      autoComplete="off"
+                      placeholder="example@gmail.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="mt-2" />
+                </div>
                 <Button
                   type="submit"
-                  className="size-8"
+                  size="icon" // Use size="icon" for a square button
                   variant="outline"
-                  aria-hidden="true"
+                  disabled={loading} // Disable button while loading
                 >
                   {loading ? (
-                    <Loader2Icon className="animate-spin" />
+                    <Loader2Icon className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Icons.send />
+                    <Icons.send className="h-4 w-4" />
                   )}
+                  <span className="sr-only">Subscribe</span>
                 </Button>
-                <FormMessage />
               </div>
             </FormItem>
           )}

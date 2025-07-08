@@ -16,7 +16,7 @@ import ProductDetail from "./pages/Products/ProductDetail";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import { homeLoader } from "@/router/loader";
-import { loginAction } from "@/router/actions";
+import { loginAction, logoutAction } from "@/router/actions";
 
 export const routes = createBrowserRouter([
   {
@@ -91,4 +91,9 @@ export const routes = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/logout",
+    action : logoutAction,
+    
+  }
 ]);

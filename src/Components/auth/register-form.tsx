@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
+import { Link } from "react-router-dom";
 
 export function RegisterForm({
   className,
@@ -74,9 +75,9 @@ export function RegisterForm({
       <CardFooter>
         <div className="ml-16 text-center text-sm">
           Already have an account?{" "}
-          <a href="/login" className="underline underline-offset-4">
+          <Link to="/login" className="underline underline-offset-4">
             Login
-          </a>
+          </Link>
         </div>
       </CardFooter>
     </Card>

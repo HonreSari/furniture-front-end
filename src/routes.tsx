@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import HomePage from "@/pages/Home.tsx";
 import RootLayout from "@/pages/RootLayout.tsx";
 import About from "@/pages/About";
@@ -14,9 +14,13 @@ import ProductRootLayouts from "./pages/Products/ProductRootLayouts";
 import ProductPage from "./pages/Products/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Login from "@/pages/auth/Login";
-import Register from "@/pages/auth/Register";
-import { homeLoader } from "@/router/loader";
+// import Register from "@/pages/auth/Register";
+import {  loginLoader } from "@/router/loader";
 import { loginAction, logoutAction } from "@/router/actions";
+import AuthRootLayout from "./pages/auth/AuthRootLayout";
+import SignUp from "./pages/auth/SignUp";
+import OtpPage from "./pages/auth/Otp";
+import ComfirmPasswordPage from "./pages/auth/ComfirmPassword";
 
 export const routes = createBrowserRouter([
   {
@@ -24,7 +28,7 @@ export const routes = createBrowserRouter([
     element: <RootLayout />, // Compnent = RootLayout
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage />, loader: homeLoader },
+      { index: true, element: <HomePage /> },
       { path: "about", element: <About /> },
       {
         path: "blogs",
@@ -85,15 +89,21 @@ export const routes = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    loader : loginLoader,
     action: loginAction,
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <AuthRootLayout />,
+    children : [
+     {index : true , element : <SignUp />},
+     {path : "otp" ,element : <OtpPage />},
+     {path : "confirm-password" ,element : <ComfirmPasswordPage />}
+    ]
   },
   {
     path: "/logout",
     action : logoutAction,
-    
+    loader : ( ) => redirect("/"),
   }
 ]);

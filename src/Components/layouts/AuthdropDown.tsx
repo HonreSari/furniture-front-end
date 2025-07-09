@@ -1,5 +1,5 @@
 import { Icons } from "@/Components/icons";
-import { Link , Form} from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 import type { User } from "@/Types";
 import { Button } from "@/components/ui/button";
 import {
@@ -72,17 +72,13 @@ export default function AuthdropDown({ user }: UserProps) {
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex justify-between" asChild>
-        {/* <Link to="/login" onSubmit={}>
-            Log out
-            </Link> */}
-        <Form method="post" action="/logout">
-          <button type="submit">
-            Logout
-            </button>
-            <Icons.exit className="h-4 w-4" />  
-        </Form>
-          </DropdownMenuItem>
+        <DropdownMenuItem asChild className="flex items-center justify-center">
+       
+          <Form method="post" action="/logout">
+            <button type="submit">Logout</button>
+          </Form>
+        
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

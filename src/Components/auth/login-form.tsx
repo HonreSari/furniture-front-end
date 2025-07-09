@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/Components/ui/input";
 // import { Label } from "@/Components/ui/label";
 import {
   Card,
@@ -10,7 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-import { Link, useSubmit } from "react-router-dom";
+import {
+  Link,
+  useSubmit,
+  useNavigation,
+  useActionData,
+} from "react-router-dom";
+import { Input } from "@/Components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +28,7 @@ import {
   FormMessage,
 } from "@/Components/ui/form";
 import { PasswordInput } from "./Password-input";
+import { Icons } from "../icons";
 
 const FormSchema = z.object({
   phone: z
@@ -38,6 +44,13 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const submit = useSubmit();
+  const navigation = useNavigation();
+  const actionData = useActionData() as {
+    error?: string;
+    message?: string;
+  };
+
+  const isSubmitting = navigation.state === "submitting";
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,7 +60,7 @@ export function LoginForm({
   });
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     // console.log(values);
-    submit(values, { method: "POST", action: "/login" });
+    submit(values, { method: "post", action: "/login" });
   };
 
   return (
@@ -116,8 +129,11 @@ export function LoginForm({
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
-              Login
+            {actionData && (
+              <p className="text-xs text-red-500">{actionData.message}</p>
+            )}
+            <Button type="submit" className="mt-2.5 w-full">
+              {isSubmitting ? "Submitting..." : "Sign in"}
             </Button>
             <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
               <span className="text-muted-foreground relative z-10 px-2">
@@ -125,9 +141,7 @@ export function LoginForm({
               </span>
             </div>
             <Button variant="outline" className="w-full">
-              <svg /* SVG code remains the same */ >
-                {/* ... */}
-              </svg>
+              <Icons.google />
               Login with Google
             </Button>
           </form>

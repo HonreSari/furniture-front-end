@@ -1,5 +1,5 @@
-import api, { authApi } from "@/api";
 import { redirect } from "react-router-dom";
+import api, { authApi } from "@/api";
 
 export const homeLoader = async () => {
   try {
@@ -11,21 +11,13 @@ export const homeLoader = async () => {
 };
 
 export const loginLoader = async () => {
-  // token ရှိ/မရှိ client-side မှာစစ်ပါ
-  const token = localStorage.getItem("token");
-  if (!token) {
-    // token မရှိရင် login page ကိုထားပါ
-    return null;
-  }
-  // token ရှိမှသာ auth-check API ကို call လုပ်ပါ
   try {
     const response = await authApi.get("auth-check");
-    if (response.status === 200) {
-      return redirect("/");
+    if (response.status !== 200) {
+      return null;
     }
-    return null;
+    return redirect("/");
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log("Loader error:", error);
   }
 };

@@ -96,7 +96,7 @@ export const routes = createBrowserRouter([
     path: "/register",
     element: <AuthRootLayout />,
     children : [
-     {index : true , element : <SignUp />},
+     {index : true , element : <SignUp />, loader : loginLoader},
      {path : "otp" ,element : <OtpPage />},
      {path : "confirm-password" ,element : <ComfirmPasswordPage />}
     ]

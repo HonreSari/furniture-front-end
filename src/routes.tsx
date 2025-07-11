@@ -88,7 +88,7 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/login",
-    // loader : loginLoader,
+    loader : loginLoader,
     action: loginAction,
     element: <Login />,
   },

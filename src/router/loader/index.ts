@@ -2,25 +2,23 @@
 import { redirect } from "react-router-dom";
 import api, { authApi } from "@/api/index"; // assuming you're using Axios instance
 
-export const loginLoader = async ({ request }: { request: Request }) => {
+export const loginLoader = async ({ request } : any) => {
+  const url = new URL(request.url);
+  if (url.searchParams.get("loggedOut")) {
+    return null; // Skip auth check if just logged out
+  }
   try {
-    const res = await authApi.get("/auth-check");
-
-    if (res.status === 200) {
-      // Already authenticated → redirect to the target or home
-      const redirectTo =
-        new URL(request.url).searchParams.get("redirect") || "/";
-      return redirect(redirectTo);
+    const response = await authApi.get("auth-check");
+    if (response.status === 200) {
+      // Only redirect if user is truly authenticated
+      return redirect("/");
     }
-
+    // If not authenticated, just render login page
     return null;
-  } catch (err: any) {
-    // Not authenticated → allow login page to render
-    if (err.response?.status === 401) {
-      return null;
-    }
-
-    throw new Response("Something went wrong", { status: 500 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // If error (e.g., 401), allow login page to render
+    return null;
   }
 };
 

@@ -15,7 +15,7 @@ import ProductPage from "./pages/Products/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Login from "@/pages/auth/Login";
 // import Register from "@/pages/auth/Register";
-import {  loginLoader } from "@/router/loader";
+import { loginLoader,  } from "@/router/loader";
 import { loginAction, logoutAction } from "@/router/actions";
 import AuthRootLayout from "./pages/auth/AuthRootLayout";
 import SignUp from "./pages/auth/SignUp";
@@ -28,7 +28,7 @@ export const routes = createBrowserRouter([
     element: <RootLayout />, // Compnent = RootLayout
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <HomePage /> ,  },
       { path: "about", element: <About /> },
       {
         path: "blogs",
@@ -88,22 +88,22 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
-    loader : loginLoader,
+    // loader : loginLoader,
     action: loginAction,
+    element: <Login />,
   },
   {
     path: "/register",
     element: <AuthRootLayout />,
-    children : [
-     {index : true , element : <SignUp />, loader : loginLoader},
-     {path : "otp" ,element : <OtpPage />},
-     {path : "confirm-password" ,element : <ComfirmPasswordPage />}
-    ]
+    children: [
+      { index: true, element: <SignUp />, loader: loginLoader },
+      { path: "otp", element: <OtpPage /> },
+      { path: "confirm-password", element: <ComfirmPasswordPage /> },
+    ],
   },
   {
     path: "/logout",
-    action : logoutAction,
-    loader : ( ) => redirect("/"),
-  }
+    action: logoutAction,
+    loader: () => redirect("/"),
+  },
 ]);

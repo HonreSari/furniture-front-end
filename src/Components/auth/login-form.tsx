@@ -1,48 +1,42 @@
-import { cn } from "@/lib/utils";
+import { Link, useSubmit, useNavigation, useActionData } from "react-router";
+
 import { Button } from "@/components/ui/button";
-// import { Label } from "@/Components/ui/label";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-import {
-  Link,
-  useSubmit,
-  useNavigation,
-  useActionData,
-} from "react-router-dom";
 import { Input } from "@/Components/ui/input";
+import { PasswordInput } from "@/Components/auth/Password-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
   FormControl,
+  //FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/Components/ui/form";
-import { PasswordInput } from "./Password-input";
-import { Icons } from "../icons";
 
 const FormSchema = z.object({
   phone: z
     .string()
-    .min(7, "Phone number must be at least 7 digits.")
-    .max(15, "Phone number must be at most 15 digits.")
-    .regex(/^\d+$/, { message: "Phone number must contain only digits." }),
-  password: z.string().min(8, "Password must be at least 8 characters."),
+    .min(7, "Phone number is too short")
+    .max(12, "Phone number is too long")
+    .regex(/^\d+$/, "Phone number must be numbers"),
+  password: z
+    .string()
+    .min(8, "Password must be 8 digits.")
+    .max(8, "Password must be 8 digits.")
+    .regex(/^\d+$/, "Password must be numbers"),
 });
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export default function LoginForm() {
   const submit = useSubmit();
   const navigation = useNavigation();
   const actionData = useActionData() as {
@@ -51,6 +45,7 @@ export function LoginForm({
   };
 
   const isSubmitting = navigation.state === "submitting";
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -58,17 +53,16 @@ export function LoginForm({
       password: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
+
+  function onSubmit(values: z.infer<typeof FormSchema>) {
     // console.log(values);
     submit(values, { method: "post", action: "/login" });
-  };
+  }
 
   return (
-    <Card className={cn("w-full max-w-sm", className)} {...props}>
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">
-          Login to your account
-        </CardTitle>
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">Sign In</CardTitle>
         <CardDescription>
           Enter your phone number below to login to your account
         </CardDescription>
@@ -78,24 +72,25 @@ export function LoginForm({
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
-            autoComplete="off" // This is good to have on the form
+            autoComplete="off"
           >
             <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="phone">Phone</FormLabel>
-                  <Input
-                    type="tel"
-                    placeholder="09xxxxxxxxx"
-                    required
-                    inputMode="numeric"
-                    autoComplete="off" // Explicitly turning off autocomplete here
-                    pattern="[0-9]*"
-                    {...field}
-                  />
-                  <FormControl></FormControl>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="tel"
+                      placeholder="0977**********"
+                      required
+                      // minLength={7}
+                      // maxLength={12}
+                      inputMode="numeric"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -105,56 +100,55 @@ export function LoginForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="">
-                    <FormLabel htmlFor="password">
-                      Password
-                      <Link
-                        to="#"
-                        className="text-muted-foreground ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                      >
-                        Forgot your password?
-                      </Link>
-                    </FormLabel>
+                  <div className="flex items-center">
+                    <FormLabel>Password</FormLabel>
+                    <Link
+                      to="/reset"
+                      className="ml-auto text-sm underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </Link>
                   </div>
-                  <PasswordInput
-                    required
-                    placeholder="******"
-                    // You had inputMode="numeric" here, which might not be what you want for a password.
-                    // Passwords often contain more than just numbers. I've removed it, but you can add it back if needed.
-                    autoComplete="new-password" // Using "new-password" is a common trick to prevent autofill
-                    {...field}
-                  />
-                  <FormControl></FormControl>
+
+                  <FormControl>
+                    <PasswordInput
+                      // placeholder="********"
+                      required
+                      inputMode="numeric"
+                      // minLength={8}
+                      // maxLength={8}
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             {actionData && (
-              <p className="text-xs text-red-500">{actionData.message}</p>
+              <p className="text-xs text-red-400">{actionData?.message}</p>
             )}
-            <Button type="submit" className="mt-2.5 w-full">
-              {isSubmitting ? "Submitting..." : "Sign in"}
-            </Button>
-            <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-              <span className="text-muted-foreground relative z-10 px-2">
-                Or continue with
-              </span>
+            <div className="grid gap-4">
+              <Button type="submit" className="mt-2 w-full">
+                {isSubmitting ? "Submitting..." : "Sign In"}
+              </Button>
+              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+              <Button variant="outline" className="w-full">
+                Sign In with Google
+              </Button>
             </div>
-            <Button variant="outline" className="w-full">
-              <Icons.google />
-              Login with Google
-            </Button>
           </form>
         </Form>
-      </CardContent>
-      <CardFooter>
-        <div className="ml-12 justify-center text-center text-sm">
+        <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to="/register" className="underline underline-offset-4">
-            Sign up
+          <Link to="/register" className="underline">
+            Sign Up
           </Link>
         </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }

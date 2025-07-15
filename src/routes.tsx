@@ -15,8 +15,14 @@ import ProductPage from "./pages/Products/Products";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Login from "@/pages/auth/Login";
 // import Register from "@/pages/auth/Register";
-import { loginLoader } from "@/router/loader";
-import { loginAction, logoutAction, registerAction } from "@/router/actions";
+import { confirmLoader, loginLoader, otpLoader } from "@/router/loader";
+import {
+  confirmAction,
+  loginAction,
+  logoutAction,
+  otpAction,
+  registerAction,
+} from "@/router/actions";
 import AuthRootLayout from "./pages/auth/AuthRootLayout";
 import SignUp from "./pages/auth/SignUp";
 import OtpPage from "./pages/auth/Otp";
@@ -89,7 +95,7 @@ export const routes = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    loader: loginLoader,  
+    loader: loginLoader,
     action: loginAction,
   },
   {
@@ -102,11 +108,21 @@ export const routes = createBrowserRouter([
         loader: loginLoader,
         action: registerAction,
       },
-      { path: "otp", element: <OtpPage /> },
-      { path: "confirm-password", element: <ComfirmPasswordPage /> },
+      {
+        path: "otp",
+        element: <OtpPage />,
+        loader: otpLoader,
+        action: otpAction,
+      },
+      {
+        path: "confirm-password",
+        element: <ComfirmPasswordPage />,
+        loader: confirmLoader,
+        action: confirmAction,
+      }, 
     ],
   },
-  {
+  { 
     path: "/logout",
     action: logoutAction,
     loader: () => redirect("/"),

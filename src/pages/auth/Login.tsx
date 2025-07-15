@@ -1,5 +1,5 @@
 import profile from "@/data/images/profile.jpg";
-import { LoginForm } from "@/Components/auth/login-form";
+import  LoginForm  from "@/Components/auth/login-form";
 import { Icons } from "@/Components/icons";
 import { Link } from "react-router-dom";
 

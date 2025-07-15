@@ -5,7 +5,7 @@ import { useNavigation, useActionData, useSubmit, Link } from "react-router-dom"
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/Components/ui/input";
-import { Icons } from "./icons";
+import { Icons } from "../icons";
 import {
   Form,
   FormControl,

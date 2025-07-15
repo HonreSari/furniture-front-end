@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/Components/ui/input";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -26,13 +25,11 @@ const FormSchema = z
     password: z
       .string()
       .min(8, "Password must be at least 8 characters.")
-      .refine(
-        (val) => !/\s/.test(val),
-        "Password cannot contain spaces or whitespace.",
-      ),
+      .regex(/^\d+$/, "Password must be numbers"),
     confirmPassword: z
       .string()
-      .min(8, "Password must be at least 8 characters."),
+      .min(8, "Password must be at least 8 characters.")
+      .regex(/^\d+$/, "Password must be numbers"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Password နှစ်ခုမတူပါ! ပြန်စစ်ပါ။",
@@ -76,65 +73,66 @@ export function ComfirmPasswordForm({
         </Link>
         <h1 className="text-xl font-bold">Confirm Your Password.</h1>
       </div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4"
-          autoComplete="off"
-        >
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    placeholder="********"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="confirmPassword">
-                  Confirm Password
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    placeholder="********"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {actionData?.error && (
-            <div className="text-xs text-red-500">{actionData.error}</div>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+        autoComplete="off"
+      >
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="********"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-          {actionData?.message && (
-            <div className="text-xs text-green-600">{actionData.message}</div>
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="********"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-          <Button
-            type="submit"
-            className="mt-2.5 w-full"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Confirm Password"}
-          </Button>
-        </form>
-      </Form>
+        />
+        {actionData?.error && (
+          <div className="flex gap-2">
+            <p className="text-xs text-red-500">{actionData?.message}</p>
+            <Link
+              to="/register"
+              className="text-xs underline underline-offset-4"
+            >
+              {" "}
+              Go Back{" "}
+            </Link>
+          </div>
+        )}
+        {actionData?.message && (
+          <div className="text-xs text-green-600">{actionData.message}</div>
+        )}
+        <Button type="submit" className="mt-2.5 w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Confirm Password"}
+        </Button>
+      </form>
       <div className="text-muted-foreground *:[a]:hover:text-primary mt-2 text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our{" "}
         <Link to="#">Terms of Service</Link> and{" "}

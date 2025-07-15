@@ -1,23 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router";
 import api, { authApi } from "@/api/index"; // assuming you're using Axios instance
+import { Status, useAuthStore } from "@/store/authStore";
 
-export const loginLoader = async ({ request } : any) => {
+export const loginLoader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
   if (url.searchParams.get("loggedOut")) {
-    return null; // Skip auth check if just logged out
+    // User just logged out, skip auth-check and allow login page to render
+    return null;
   }
   try {
     const response = await authApi.get("auth-check");
     if (response.status === 200) {
-      // Only redirect if user is truly authenticated
       return redirect("/");
     }
-    // If not authenticated, just render login page
     return null;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    // If error (e.g., 401), allow login page to render
+    console.log("Loader error:", error);
     return null;
   }
 };
@@ -31,17 +29,22 @@ export const homeLoader = async () => {
   }
 };
 
-export const protectedLoader = async ({ request }: { request: Request }) => {
-  try {
-    const res = await authApi.get("/auth-check");
+export const otpLoader = async () => {
+  const authStore = useAuthStore.getState();
 
-    if (res.status === 200) {
-      return null; // allow route
-    }
-    // fallback
-    return redirect(`/login?redirect=${new URL(request.url).pathname}`);
-  } catch (err: any) {
-    return redirect(`/login?redirect=${new URL(request.url).pathname}`);
-    throw new err;
+  if (authStore.status !== Status.otp) {
+    return redirect("/register");
   }
+
+  return null;
+};
+
+export const confirmLoader = async () => {
+  const authStore = useAuthStore.getState();
+
+  if (authStore.status !== Status.confirm) {
+    return redirect("/register");
+  }
+
+  return null;
 };

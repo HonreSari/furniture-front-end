@@ -24,7 +24,7 @@ const FormSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters."),
 });
 
-export function LoginForm({
+export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {

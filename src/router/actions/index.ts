@@ -31,11 +31,32 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
     } else throw error;
   }
 };
+
 export const logoutAction = async () => {
   try {
     await api.post("logout");
     return redirect("/login?loggedOut=true");
   } catch (error) {
     console.log("logout failed", error);
+  }
+};
+
+
+export const registerAction = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const credentials = Object.fromEntries(formData);
+   
+  try {
+    const response = await authApi.post("register", credentials);
+    if (response.status !== 200) {
+      return { error: response.data || "Sending OTP failed" };
+    }
+    // client state management
+    return redirect("/register/otp");
+  } catch (error) {
+    // throw error
+    if (error instanceof AxiosError) {
+      return error.response?.data || { error: "Sending OTP failed" };
+    } else throw error;
   }
 };
